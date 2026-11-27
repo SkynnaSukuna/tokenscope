@@ -1,0 +1,73 @@
+name: Deploy TokenScope to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # Снимок каталога дважды в час; GitHub может запускать расписание с задержкой.
+    - cron: '13,43 * * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Restore latest catalog
+        uses: actions/cache/restore@v6
+        with:
+          path: |
+            data/cache.json
+            data/history.json
+          key: tokenscope-snapshot-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            tokenscope-snapshot-v1-
+      - name: Test parser, filters and static adapter
+        run: npm test
+      - name: Collect public catalog
+        run: node tools/collect-snapshot.js
+      # Сохраняем данные до сборки/публикации: их ошибка не должна терять снимок.
+      - name: Save collected catalog
+        uses: actions/cache/save@v6
+        with:
+          path: |
+            data/cache.json
+            data/history.json
+          key: tokenscope-snapshot-v1-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Build static site
+        run: npm run build
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

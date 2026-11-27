@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>TokenScope — токены нейросетей в фокусе</title>
+<meta name="description" content="Сравнивайте предложения токенов нейросетей: цена за миллион, объём, условия и репутация продавца. Найдите подходящий вариант с TokenScope.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23000000'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23b7f59a' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%23b7f59a'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<a class="skip-link" href="#catalog">К предложениям</a>
+
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-scope" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M12 12l6-6M12 1v3M12 20v3M1 12h3M20 12h3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l4 4L19 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 6.1M20 5v6h-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M15 5.5A2.5 2.5 0 0 0 12.5 3H6.8A2.8 2.8 0 0 0 4 5.8v5.7A2.5 2.5 0 0 0 6.5 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-8.5 8.5M19 14v4.5A2.5 2.5 0 0 1 16.5 21H5.5A2.5 2.5 0 0 1 3 18.5v-11A2.5 2.5 0 0 1 5.5 5H10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 5.2A9.8 9.8 0 0 1 12 5c5 0 9 4.6 10 7-.4 1-1.2 2.2-2.3 3.4M6.2 6.4C3.9 8 2.4 10.3 2 12c1 2.4 5 7 10 7 1.6 0 3.1-.5 4.5-1.2M9.9 9.9a3 3 0 0 0 4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.6l2.5 5.1 5.6.8-4 3.9.9 5.6-5-2.7-5 2.7.9-5.6-4-3.9 5.6-.8z" fill="currentColor"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12z" fill="currentColor"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.6-3 8.4-7 10-4-1.6-7-5.4-7-10V6z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8z" fill="currentColor"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-desc" viewBox="0 0 24 24"><path d="M5 4h14M5 9h14M5 14h9M5 19h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3.6 6h.1M3.6 12h.1M3.6 18h.1" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+</svg>
+
+<header class="topbar glass">
+  <a class="brand" href="./" aria-label="TokenScope — на главную">
+    <span class="brand-mark"><svg aria-hidden="true"><use href="#i-scope"/></svg></span>
+    <span class="brand-text">
+      <span class="brand-name">Token<span>Scope</span></span>
+      <span class="brand-sub">ясность в мире токенов</span>
+    </span>
+  </a>
+  <a class="topbar-nav" href="#catalog">Каталог предложений <span>↗</span></a>
+  <div class="topbar-right">
+    <div class="live" id="live">
+      <span class="dot"></span>
+      <span id="updated">загрузка…</span>
+    </div>
+    <button class="btn btn-ghost" id="refreshBtn" type="button" aria-label="Обновить данные">
+      <svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg><span>Обновить</span>
+    </button>
+    <button class="btn btn-accent magnetic" id="shareBtn" type="button" aria-label="Скопировать ссылку на подборку">
+      <svg class="ic"><use href="#i-copy"/></svg><span>Скопировать ссылку</span>
+    </button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero glass reveal" aria-labelledby="heroTitle">
+    <div class="hero-top">
+      <div class="hero-copy">
+        <div class="eyebrow hero-enter"><span class="spark-dot"></span> Меньше шума. Больше ясности.</div>
+        <h1 id="heroTitle" class="hero-enter">Токены <span class="grad">в фокусе.</span><br>Выбор — за вами.</h1>
+        <p class="lede hero-enter">Миллион токенов, десятки условий, одна понятная цена. Сравните предложения нейросетей и найдите то, что подходит именно вам.</p>
+        <div class="hero-actions hero-enter">
+          <a class="btn btn-accent hero-cta magnetic" href="#catalog">Найти предложение <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <span class="hero-caption">Цена · объём · репутация</span>
+        </div>
+        <div class="hero-data hero-enter"><span><b id="categoryTotal">6</b> категорий</span><i></i><span><b id="totalLots">—</b> лотов</span><i></i><span><span id="heroUpdatedLabel">обновлено</span> <b id="heroUpdated">—</b></span></div>
+      </div>
+      <div class="scope-art" aria-hidden="true">
+        <div class="scope-coordinate coord-top">TS / MARKET OBSERVATORY</div>
+        <div class="scope-grid"></div>
+        <div class="scope-orbit orbit-outer"></div><div class="scope-orbit orbit-mid"></div><div class="scope-orbit orbit-inner"></div>
+        <div class="scope-axis axis-x"></div><div class="scope-axis axis-y"></div>
+        <div class="scope-sweep"></div>
+        <span class="scope-blip blip-one"></span><span class="scope-blip blip-two"></span><span class="scope-blip blip-three"></span>
+        <div class="scope-core"><span>ОБЩИЙ ЗНАМЕНАТЕЛЬ</span><b>1<span>М</span></b><small>токенов</small></div>
+        <div class="scope-tag tag-price"><span class="scope-tag-icon">↘</span><span>Цена<strong>без лишних нулей</strong></span></div>
+        <div class="scope-tag tag-terms"><span class="scope-tag-icon">≋</span><span>Условия<strong>на виду</strong></span></div>
+        <div class="scope-coordinate coord-bottom"><span class="scope-signal"></span> СРАВНИВАЙТЕ ОСОЗНАННО <span>01 — ∞</span></div>
+      </div>
+    </div>
+    <div class="hero-pills">
+      <span class="pill" id="modeBadge"><svg class="ic" aria-hidden="true"><use href="#i-scope"/></svg><span id="modeLabel">Публичные предложения</span></span>
+      <span class="pill" id="updatePill"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg><span id="updatePolicy">Данные регулярно обновляются</span></span>
+      <span class="hero-method">Сравниваем стоимость за 1 млн токенов, а не только цену лота.</span>
+    </div>
+
+    <div class="stats">
+      <div class="stat stat-main">
+        <div class="stat-label">Медиана цены за 1М токенов</div>
+        <div class="stat-value" id="statMedianMain">—</div>
+        <div class="stat-foot" id="statAvgDelta">считаем…</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Средняя цена за 1М</div>
+        <div class="stat-value sm" id="statAvg">—</div>
+        <div class="stat-foot" id="statWeighted">—</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Минимум</div>
+        <div class="stat-value sm good" id="statMin">—</div>
+        <div class="stat-foot">самое дешёвое предложение</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Лотов в выборке</div>
+        <div class="stat-value sm" id="statCount">—</div>
+        <div class="stat-foot" id="statCountFoot">—</div>
+      </div>
+    </div>
+
+    <div class="hero-viz">
+      <div class="band-card">
+        <div class="viz-head">
+          <span>Диапазон цены за 1М</span>
+          <span class="viz-range" id="bandRange">—</span>
+        </div>
+        <div class="band" id="band">
+          <div class="band-track">
+            <span class="band-fill"></span>
+            <i class="band-mark mark-min" id="markMin" title="минимум"></i>
+            <i class="band-mark mark-avg" id="markAvg" title="средняя"></i>
+            <i class="band-mark mark-med" id="markMed" title="медиана"></i>
+            <i class="band-mark mark-max" id="markMax" title="максимум"></i>
+          </div>
+        </div>
+        <div class="band-legend">
+          <span><i class="lg lg-min"></i>мин</span>
+          <span><i class="lg lg-avg"></i>средняя</span>
+          <span><i class="lg lg-med"></i>медиана</span>
+          <span><i class="lg lg-max"></i>макс</span>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="viz-head">
+          <span>Цена падает / растёт</span>
+          <span class="chart-delta" id="chartDelta">—</span>
+        </div>
+        <div class="chart" id="chart"><div class="chart-empty">история начнёт рисоваться после нескольких обновлений</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="filters-backdrop" id="filtersBackdrop"></div>
+
+  <div class="layout">
+    <aside class="filters glass reveal" id="filters">
+      <div class="filters-head">
+        <div class="filters-title">
+          <h2>Фильтры</h2>
+          <span class="filter-count" data-filter-count hidden>0</span>
+        </div>
+        <div class="filters-head-actions">
+          <button class="link-btn" id="resetBtn" type="button">Сбросить</button>
+          <button class="btn btn-ghost filters-close" id="filtersClose" type="button" aria-label="Скрыть панель фильтров">Скрыть</button>
+        </div>
+      </div>
+
+      <p class="hint filter-intro">Выберите нужное — результаты обновятся сами.</p>
+      <p class="filter-summary-line" id="filterSummary" aria-live="polite">Все предложения</p>
+      <p class="filter-error" id="filterError" role="alert" hidden></p>
+
+      <details class="fgroup" data-group="offer" open>
+      <summary class="fgroup-title">Предложение <span class="fcount" hidden></span></summary>
+      <div class="fgroup-body">
+      <fieldset class="filter-section"><legend>Нейросеть</legend>
+      <div class="chips" id="catChips"></div>
+      <details class="filter-subdetails" id="modelOptions"><summary>Выбрать конкретные модели</summary><div class="filter-subbody">
+      <input class="input model-search" id="modelSearch" type="search" placeholder="Найти модель…" aria-label="Найти модель в фильтрах" autocomplete="off">
+                <div class="chips model-chips" id="modelChips"></div>
+                <p class="hint" id="modelSearchEmpty" hidden>Такой модели нет в каталоге.</p>
+      </div></details>
+      </fieldset>
+      <fieldset class="filter-section"><legend>Тип доступа</legend>
+      <label class="field-stack" for="offerType">Формат предложения</label>
+                <select class="input select" id="offerType">
+                  <option value="any">Все предложения</option>
+                  <option value="tokens">Пакеты токенов</option>
+                  <option value="unlimited">Любой безлимит</option>
+                  <option value="timed">Безлимит на время</option>
+                  <option value="excludeTimed">Исключить безлимит на время</option>
+                  <option value="excludeUnlimited">Без безлимита</option>
+                  <option value="credits">Кредиты и подписки</option>
+                </select>
+                
+      <div id="durationOptions" hidden>
+      <div class="field-label">Срок безлимитного доступа</div>
+                <div class="presets" id="durationPresets" role="group" aria-label="Быстрый выбор срока">
+                  <button data-minutes="0" type="button">Любой</button>
+                  <button data-minutes="60" type="button">1 ч</button>
+                  <button data-minutes="180" type="button">3 ч</button>
+                  <button data-minutes="1440" type="button">24 ч</button>
+                  <button data-minutes="10080" type="button">7 дней</button>
+                </div>
+                <div class="duration-fields">
+                  <div class="row2">
+                    <label class="field-stack">От<input class="input" id="minDuration" type="text" inputmode="decimal" placeholder="любой" autocomplete="off" aria-describedby="durationHint filterError"></label>
+                    <label class="field-stack">До<input class="input" id="maxDuration" type="text" inputmode="decimal" placeholder="любой" autocomplete="off" aria-describedby="durationHint filterError"></label>
+                  </div>
+                  <select class="input select" id="durationUnit" aria-label="Единицы срока доступа">
+                    <option value="1">Минуты</option>
+                    <option value="60" selected>Часы</option>
+                    <option value="1440">Дни</option>
+                  </select>
+                </div>
+                <p class="hint" id="durationHint">Срок из текста объявления. Лоты с неизвестным сроком не попадут в заданный диапазон.</p>
+                
+      </div>
+      </fieldset>
+      </div>
+      </details>
+
+      <details class="fgroup" data-group="budget" open>
+      <summary class="fgroup-title">Цена и объём <span class="fcount" hidden></span></summary>
+      <div class="fgroup-body">
+      <fieldset class="filter-section"><legend>Бюджет</legend>
+      <div class="field-label">За 1М токенов, ₽</div>
+                <div class="row2">
+                  <input class="input" id="minPriceM" aria-label="Цена за миллион от" type="text" inputmode="decimal" placeholder="от">
+                  <input class="input" id="maxPriceM" aria-label="Цена за миллион до" type="text" inputmode="decimal" placeholder="до">
+                </div>
+                <div class="field-label">Цена лота, ₽</div>
+                <div class="row2">
+                  <input class="input" id="minLotPrice" aria-label="Цена лота от" type="text" inputmode="decimal" placeholder="от">
+                  <input class="input" id="maxLotPrice" aria-label="Цена лота до" type="text" inputmode="decimal" placeholder="до">
+                </div>
+      </fieldset>
+      <fieldset class="filter-section"><legend>Объём</legend>
+      <label class="field-stack filter-label" for="volumeMode">Количество токенов</label>
+      <select class="input select" id="volumeMode" aria-controls="exactVolumeFields rangeVolumeFields">
+      <option value="any">Любое количество</option>
+      <option value="exact">Ровно столько</option>
+      <option value="range">В диапазоне</option>
+      </select>
+      <div id="exactVolumeFields" hidden><div class="need-box">
+                  <input class="input" id="needInput" type="text" inputmode="numeric" placeholder="например 10 000 000" autocomplete="off" aria-describedby="needHint">
+                  <span class="need-unit">токенов</span>
+                </div>
+                <p class="hint" id="needHint">Ровно столько токенов в одном лоте. Можно написать 10М или 10 000 000.</p>
+                <div class="presets" id="needPresets">
+                  <button data-v="1000000" type="button">1М</button>
+                  <button data-v="5000000" type="button">5М</button>
+                  <button data-v="10000000" type="button">10М</button>
+                  <button data-v="50000000" type="button">50М</button>
+                  <button data-v="100000000" type="button">100М</button>
+                  <button data-v="500000000" type="button">500М</button>
+                  <button data-v="1000000000" type="button">1 млрд</button>
+                </div></div>
+      <div id="rangeVolumeFields" hidden><div class="field-label">Объём лота, токенов</div><div class="row2">
+                  <input class="input" id="minTokens" type="text" inputmode="numeric" placeholder="от">
+                  <input class="input" id="maxTokens" type="text" inputmode="numeric" placeholder="до">
+                </div>
+                </div>
+      </fieldset>
+      <details class="filter-subdetails" id="volumePrecision"><summary>Точность объёма и наличие</summary><div class="filter-subbody">
+      <div class="field-label">Объём за 1 шт., токенов</div>
+                <div class="row2">
+                  <input class="input" id="unitMin" type="text" inputmode="numeric" placeholder="от">
+                  <input class="input" id="unitMax" type="text" inputmode="numeric" placeholder="до">
+                </div>
+                <label class="check"><input type="checkbox" id="unitKnown"><span>Указан объём за одну штуку</span></label>
+                <label class="check"><input type="checkbox" id="exactTokens"><span>Только достоверно указанный объём</span></label>
+      <fieldset class="filter-section"><legend>Наличие</legend>
+      <select class="input select" id="qtyMode">
+                  <option value="any">Любое наличие</option>
+                  <option value="exclude1">Убрать лоты с 1 шт</option>
+                  <option value="known">Только с указанным наличием</option>
+                  <option value="range">Диапазон наличия</option>
+                </select>
+                <div class="row2 qty-range" id="qtyRange" hidden>
+                  <input class="input" id="qtyMin" type="text" inputmode="numeric" placeholder="шт от">
+                  <input class="input" id="qtyMax" type="text" inputmode="numeric" placeholder="шт до">
+                </div>
+                <p class="hint">FunPay редко публикует остатки. Фильтр работает по явным упоминаниям «в наличии N шт» в описании.</p>
+      </fieldset>
+      </div></details>
+      </div>
+      </details>
+
+      <details class="fgroup" data-group="seller">
+      <summary class="fgroup-title">Продавец <span class="fcount" hidden></span></summary>
+      <div class="fgroup-body">
+      <div class="row2">
+                  <select class="input select" id="minStars" aria-label="Минимальный рейтинг продавца">
+                    <option value="0">Любой рейтинг</option>
+                    <option value="3">3★ и выше</option>
+                    <option value="4">4★ и выше</option>
+                    <option value="5">только 5★</option>
+                  </select>
+                  <input class="input" id="minReviews" type="text" inputmode="numeric" placeholder="отзывов от">
+                </div>
+                <select class="input select" id="minAgeMonths" aria-label="Стаж продавца">
+                  <option value="0">Любой стаж продавца</option>
+                  <option value="3">На сайте от 3 мес.</option>
+                  <option value="6">На сайте от 6 мес.</option>
+                  <option value="12">На сайте от 1 года</option>
+                  <option value="36">На сайте от 3 лет</option>
+                  <option value="60">На сайте от 5 лет</option>
+                </select>
+                <label class="check"><input type="checkbox" id="autoOnly"><span>Мгновенная автовыдача</span></label>
+                <label class="check"><input type="checkbox" id="onlineOnly"><span>Продавец онлайн</span></label>
+                
+      <details class="filter-subdetails" id="reviewOptions"><summary>Проверка низких оценок</summary><div class="filter-subbody">
+      <fieldset class="review-exclusions" aria-describedby="reviewFilterHint">
+                  <legend>Исключить низкие оценки</legend>
+                  <label class="check"><input type="checkbox" id="noReviewStar1" data-no-review-star="1"><span>Без отзывов на 1★</span></label>
+                  <label class="check"><input type="checkbox" id="noReviewStar2" data-no-review-star="2"><span>Без отзывов на 2★</span></label>
+                  <label class="check"><input type="checkbox" id="noReviewStar3" data-no-review-star="3"><span>Без отзывов на 3★</span></label>
+                  <p class="hint" id="reviewFilterHint">Проверяем весь профиль FunPay, по всем покупкам. Можно выбрать несколько оценок. Непроверенные продавцы не проходят фильтр.</p>
+                </fieldset>
+      </div></details>
+      </div>
+      </details>
+
+      <details class="fgroup" data-group="conditions">
+      <summary class="fgroup-title">Условия <span class="fcount" hidden></span></summary>
+      <div class="fgroup-body">
+      <label class="check"><input type="checkbox" id="excludeOneToOne"><span>Без «1 токен = 1 человек»</span></label>
+                <div class="field-label" id="inputOutputLabel">Как списываются токены</div>
+                <div class="seg" id="inputOutputSeg" role="group" aria-labelledby="inputOutputLabel" aria-describedby="inputOutputHint">
+                  <button data-v="any" class="active" type="button" aria-pressed="true">Все</button>
+                  <button data-v="only" type="button" aria-pressed="false">С формулой</button>
+                  <button data-v="exclude" type="button" aria-pressed="false">Без формулы</button>
+                </div>
+                <p class="hint" id="inputOutputHint">По тексту лота: input + output, вход + выход, с множителем или без. «Без формулы» скрывает найденные совпадения; условия нераспознанных лотов могут быть неизвестны.</p>
+                <div class="field-label" id="bonusLabel">Бонусы</div><div class="seg" id="bonusSeg" role="group" aria-labelledby="bonusLabel">
+                  <button data-v="any" class="active" type="button">Любые</button>
+                  <button data-v="only" type="button">Есть бонус</button>
+                  <button data-v="exclude" type="button">Без бонуса</button>
+                </div>
+                <div class="field-label" id="refundLabel">Возврат</div><div class="seg" id="refundSeg" role="group" aria-labelledby="refundLabel">
+                  <button data-v="any" class="active" type="button">Любой</button>
+                  <button data-v="yes" type="button">Есть возврат</button>
+                  <button data-v="no" type="button">Без возврата</button>
+                </div>
+                
+      <label class="check"><input type="checkbox" id="noRateLimited"><span>Без суточного лимита</span></label>
+                <label class="check"><input type="checkbox" id="noCredits"><span>Без кредитов и подписок</span></label>
+      <details class="filter-subdetails" id="descriptionOptions"><summary>Загрузка описаний</summary><div class="filter-subbody">
+      <label class="check"><input type="checkbox" id="onlyDesc"><span>Только с загруженным описанием</span></label>
+                <div class="desc-progress">
+                  <div class="dp-head"><span>Проверено описаний</span><b id="descProgressText">—</b></div>
+                  <div class="dp-bar"><span id="descProgressBar"></span></div>
+                  <div class="dp-foot">
+                    <button class="link-btn" id="enrichBtn" type="button">Проверить ещё 120 лотов</button>
+                    <span id="descQueue"></span>
+                  </div>
+                </div>
+      </div></details>
+      </div>
+      </details>
+
+      <details class="filter-subdetails" id="sourceOptions"><summary>Площадки и скрытые объявления</summary><div class="filter-subbody">
+      <fieldset class="services-filter" aria-describedby="serviceReason">
+              <legend>Площадки</legend>
+              <div class="service-cards">
+                <label class="service-card service-active">
+                  <input id="serviceFunpay" type="checkbox" checked disabled aria-describedby="serviceReason">
+                  <span class="service-logo">F<span>p</span></span>
+                  <span class="service-name">FunPay<small>Подключена</small></span>
+                  <span class="service-check" aria-hidden="true"><svg class="ic"><use href="#i-check"/></svg></span>
+                </label>
+                <label class="service-card service-soon" aria-disabled="true">
+                  <input id="serviceComingSoon" type="checkbox" disabled aria-describedby="serviceSoonReason">
+                  <span class="service-logo service-more">＋</span>
+                  <span class="service-name">Другие площадки<small lang="en">Coming soon</small></span>
+                  <span class="service-lock" aria-hidden="true">↗</span>
+                </label>
+              </div>
+              <p class="hint" id="serviceReason">Сейчас доступна одна площадка. FunPay всегда включена.</p>
+              <span class="sr-only" id="serviceSoonReason">Другие площадки пока недоступны; выбрать их нельзя.</span>
+            </fieldset>
+      <fieldset class="filter-section"><legend>Скрытое</legend>
+      <div class="field-label">Предложения</div>
+                <div class="chips" id="hiddenOffers"></div>
+                <p class="hint">Крестик на карточке скрывает только это предложение. Нажмите на название здесь, чтобы вернуть его.</p>
+                <div class="field-label">Продавцы</div>
+                <div class="chips" id="hiddenSellers"></div>
+                <p class="hint">Перечёркнутый глаз на карточке скрывает все предложения продавца. Скрытое сохраняется в этом браузере.</p>
+      </fieldset>
+      </div></details>
+      <button class="btn btn-accent filters-apply" id="filterApply" type="button"><span id="filterApplyText">Показать объявления</span></button>
+    </aside>
+
+    <section class="results" id="catalog" aria-label="Каталог предложений">
+      <section class="preset-panel reveal" aria-labelledby="presetTitle">
+        <div class="preset-heading"><div><span class="section-kicker">БЫСТРЫЙ СТАРТ</span><h2 id="presetTitle">С чего начнём?</h2></div><button class="link-btn" id="presetReset" type="button">Сбросить фильтры ↗</button></div>
+        <div class="preset-row" id="presetRow" role="group" aria-label="Готовые наборы фильтров">
+          <button class="preset-btn" data-preset="cheap" type="button" aria-pressed="false"><span class="preset-icon">↘</span><span><b>Выгодные</b><small>Токены · от 4★ · цена за 1М</small></span><span class="preset-check" aria-hidden="true">✓</span></button>
+          <button class="preset-btn" data-preset="safe" type="button" aria-pressed="false"><span class="preset-icon">◇</span><span><b>Надёжные</b><small id="safePresetDescription">5★ · 100+ отзывов · с возвратом</small></span><span class="preset-check" aria-hidden="true">✓</span></button>
+          <button class="preset-btn" data-preset="bulk" type="button" aria-pressed="false"><span class="preset-icon">▤</span><span><b>Крупный объём</b><small>От 10 млн · сначала больше</small></span><span class="preset-check" aria-hidden="true">✓</span></button>
+          <button class="preset-btn" data-preset="hour" type="button" aria-pressed="false"><span class="preset-icon">◷</span><span><b>Безлимит на 1 ч</b><small>Ровно час · по цене часа</small></span><span class="preset-check" aria-hidden="true">✓</span></button>
+          <button class="preset-btn" data-preset="instant" type="button" aria-pressed="false"><span class="preset-icon">ϟ</span><span><b>Без ожидания</b><small>Автовыдача · продавец онлайн</small></span><span class="preset-check" aria-hidden="true">✓</span></button>
+        </div>
+        <p class="preset-description" id="presetDescription" aria-live="polite">Набор настроит фильтры за вас. Категории, модели и поисковый запрос сохранятся.</p>
+        <div class="saved-preset" id="savedPresetPanel">
+          <div class="saved-preset-empty" id="savedPresetEmpty"><span class="saved-preset-icon">＋</span><span>Своя точка отсчёта <small>Сохраните текущие фильтры в этом браузере</small></span></div>
+          <button class="saved-preset-apply" id="applySavedPreset" type="button" hidden aria-pressed="false"><span class="saved-preset-icon">⌁</span><span><b id="savedPresetLabel">Мой набор</b><small id="savedPresetDetails">Сохранённые фильтры</small></span><span aria-hidden="true">↗</span></button>
+          <div class="saved-preset-actions"><button class="link-btn" id="savePresetBtn" type="button" aria-expanded="false" aria-controls="savePresetForm">Сохранить набор</button><button class="link-btn" id="deleteSavedPreset" type="button" hidden>Удалить</button></div>
+          <form class="save-preset-form" id="savePresetForm" hidden><label class="sr-only" for="presetName">Название своего набора</label><input class="input" id="presetName" maxlength="40" placeholder="Например: мои 10 миллионов" autocomplete="off"><button class="btn btn-accent" type="submit">Сохранить</button><button class="btn btn-ghost" id="cancelSavePreset" type="button" aria-label="Отменить сохранение">×</button></form>
+        </div>
+      </section>
+      <div class="catalog-heading"><h2>Предложения <span>в деталях</span></h2><span>Сравнивайте на своих условиях</span></div>
+      <div class="toolbar glass reveal">
+        <div class="search">
+          <svg class="ic"><use href="#i-search"/></svg>
+          <input id="q" type="search" placeholder="Модель, продавец или слово в описании…" autocomplete="off" aria-label="Поиск предложений" aria-keyshortcuts="/"><kbd class="search-key" aria-hidden="true">/</kbd>
+        </div>
+        <div class="toolbar-right">
+          <button class="btn btn-ghost filters-toggle" id="filtersToggle" type="button" aria-controls="filters" aria-expanded="true" aria-label="Скрыть панель фильтров">
+            <svg class="ic"><use href="#i-filter"/></svg><span>Фильтры</span>
+            <span class="filter-count" data-filter-count hidden>0</span>
+          </button>
+          <div class="view-toggle" id="viewToggle" role="group" aria-label="Вид карточек">
+            <button class="vt-btn" data-view="grid" type="button" title="Квадратные карточки">
+              <svg viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg>
+              <span class="vt-label">Плитка</span>
+            </button>
+            <button class="vt-btn" data-view="list" type="button" title="Строки">
+              <svg viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="5" width="16" height="4" rx="2"/><rect x="4" y="10" width="16" height="4" rx="2"/><rect x="4" y="15" width="16" height="4" rx="2"/></svg>
+              <span class="vt-label">Список</span>
+            </button>
+          </div>
+          <select class="input select compact" id="sort">
+            <option value="priceM">Цена за 1М ↑</option>
+            <option value="price">Цена лота ↑</option>
+            <option value="priceHour">Цена часа ↑</option>
+            <option value="duration">Срок доступа ↑</option>
+            <option value="tokens">Объём ↓</option>
+            <option value="stars">Рейтинг ↓</option>
+            <option value="starsAsc">Рейтинг ↑</option>
+            <option value="reviews">Число отзывов ↓</option>
+            <option value="reviewsAsc">Число отзывов ↑</option>
+            <option value="age">Стаж продавца ↓</option>
+            <option value="need">Цена под объём ↑</option>
+          </select>
+          <button class="btn btn-ghost icon-only" id="copyBtn" type="button" title="Скопировать ссылку на эту подборку">
+            <svg class="ic"><use href="#i-copy"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="active-chips" id="activeChips"></div>
+
+      <div class="need-card glass reveal" id="needCard" hidden>
+        <div class="need-head">
+          <span class="need-title">Ровно <b id="needTitle">—</b> токенов</span>
+          <span class="need-sub">лучшие цены на лоты с точным объёмом</span>
+        </div>
+        <div class="need-plans" id="needPlans"></div>
+      </div>
+
+      <div class="list-head">
+        <div id="resultInfo">—</div>
+        <div class="list-head-right">
+          <span id="descNote" class="desc-note"></span>
+        </div>
+      </div>
+
+      <div class="review-check-progress" id="reviewCheckProgress" role="status" aria-live="polite" hidden>
+        <span id="reviewCheckText"></span>
+        <button class="link-btn" id="reviewCheckRetry" type="button" hidden>Повторить проверку</button>
+      </div>
+
+      <div class="list" id="list"></div>
+
+      <div class="list-foot">
+        <button class="btn btn-ghost wide" id="moreBtn" type="button" hidden>Показать ещё</button>
+        <div class="empty" id="empty" hidden>
+          <div class="empty-mark">◌</div>
+          <h3>Ничего не нашлось</h3>
+          <p>Попробуйте ослабить фильтры или увеличить диапазон цены.</p>
+          <button class="btn btn-accent" id="emptyReset" type="button">Сбросить фильтры</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="foot">
+    <a class="foot-brand" href="./">TokenScope<span>Ясность имеет значение.</span></a>
+    <div><span id="sourceNote">Источник: публичные предложения FunPay. Цены без комиссии способа оплаты.</span><span>Проверяйте актуальность условий и продавца перед покупкой.</span></div>
+  </footer>
+</main>
+
+<dialog class="feedback-dialog" id="reviewsDialog" aria-labelledby="reviewsTitle" aria-describedby="reviewsAbout">
+  <div class="feedback-shell">
+    <header class="feedback-header">
+      <div class="feedback-heading">
+        <h2 id="reviewsTitle">Отзывы · <span id="reviewsSellerName">продавец</span></h2>
+        <a id="reviewsProfile" target="_blank" rel="noopener noreferrer">Профиль на FunPay ↗</a>
+      </div>
+      <button class="btn btn-ghost icon-only" id="reviewsClose" type="button" aria-label="Закрыть отзывы" autofocus><svg class="ic" aria-hidden="true"><use href="#i-close"/></svg></button>
+    </header>
+    <div class="feedback-body" id="reviewsBody">
+      <p class="feedback-about" id="reviewsAbout">Отзывы покупателей по всему профилю FunPay · только чтение. Каждый раз сначала показываем низкие оценки.</p>
+      <div class="feedback-summary-head"><span>Оценки по всему профилю</span><b id="reviewsSummaryTotal">Всего: —</b></div>
+      <div class="feedback-summary" id="reviewsSummary" role="group" aria-label="Число отзывов по оценкам"></div>
+      <p class="feedback-summary-note" id="reviewsSummaryNote">Прочерк — число пока неизвестно; 0 — отсутствие подтверждено.</p>
+      <div class="feedback-controls">
+        <label class="field-stack" for="reviewsSort">Порядок
+          <select class="input select" id="reviewsSort">
+            <option value="worst">Сначала плохие</option>
+            <option value="newest">Сначала новые</option>
+            <option value="best">Сначала хорошие</option>
+          </select>
+        </label>
+        <label class="field-stack" for="reviewsRating">Оценка
+          <select class="input select" id="reviewsRating">
+            <option value="0">Все оценки</option>
+            <option value="1">1★</option>
+            <option value="2">2★</option>
+            <option value="3">3★</option>
+            <option value="4">4★</option>
+            <option value="5">5★</option>
+          </select>
+        </label>
+        <label class="field-stack feedback-search" for="reviewsSearch">Поиск по загруженным
+          <input class="input" id="reviewsSearch" type="search" placeholder="Слово в отзыве…" autocomplete="off">
+        </label>
+      </div>
+      <p class="feedback-legend"><span class="feedback-key-positive">Похвала</span> / <span class="feedback-key-negative">Жалобы</span> · выделено по словам в отзыве</p>
+      <p class="feedback-warning" id="reviewsWarning" role="status" hidden></p>
+      <p class="feedback-status" id="reviewsStatus" role="status" aria-live="polite"></p>
+      <div class="feedback-error" id="reviewsError" role="alert" hidden>
+        <p id="reviewsErrorText"></p>
+        <button class="btn btn-ghost" id="reviewsRetry" type="button">Повторить</button>
+      </div>
+      <div class="feedback-list" id="reviewsList" aria-busy="false"></div>
+      <button class="btn btn-ghost wide" id="reviewsMore" type="button" hidden>Показать ещё отзывы</button>
+    </div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="./config.js"></script>
+<script src="./api.js"></script>
+<script src="./description.js"></script>
+<script src="./review-highlights.js"></script>
+<script src="./reviews.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>

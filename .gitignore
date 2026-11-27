@@ -1,0 +1,18 @@
+node_modules/
+data/
+.probe/
+*.log
+
+# Generated static site and local browser checks
+dist/
+.preview/
+.test-output/
+
+# Local environment and editor/OS files
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

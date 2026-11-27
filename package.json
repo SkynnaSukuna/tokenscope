@@ -1,0 +1,25 @@
+{
+  "name": "tokenscope",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TokenScope — сравнение цен на токены нейросетей и мониторинг предложений",
+  "license": "MIT",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "build": "node tools/build-pages.js",
+    "snapshot": "node tools/collect-snapshot.js && npm run build",
+    "preview": "node tools/preview-pages.js",
+    "test:pages": "node tools/pages-selftest.js",
+    "test:pages:ui": "node tools/pages-uitest.js",
+    "test": "node tools/selftest.js && node tools/billing-selftest.js && node tools/description-selftest.js && node tools/review-highlights-selftest.js && node tools/reviews-filter-selftest.js && node tools/reviews-selftest.js && node tools/pages-selftest.js",
+    "test:ui": "node tools/uitest.js",
+    "test:access": "node tools/access-uitest.js",
+    "test:reviews": "node tools/reviews-uitest.js",
+    "shot": "node tools/shot.js http://127.0.0.1:8787/ 1440 1600 .probe/shot.png 5000"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
